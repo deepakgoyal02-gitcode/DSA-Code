@@ -1,0 +1,121 @@
+class NumberList {
+    int data;
+    NumberList next;
+    NumberList(int pData)
+    {
+        data = pData;
+    }
+}
+class Main
+{
+    static NumberList addNode(NumberList pStart, NumberList pObj)
+    {
+        pObj.next = pStart;
+        pStart = pObj;
+
+        return pStart;
+    }
+    static NumberList addNodeAtLoc(NumberList pStart, NumberList pObj, int loc)
+    {
+        if(loc==1)
+        {
+            pStart = addNode(pStart,pObj);
+            return pStart;
+        }
+
+        NumberList temp = pStart;
+
+        for(int i = 1;i<loc-1;i++)
+        {
+            temp = temp.next;
+        }
+        pObj.next  = temp.next;
+        temp.next = pObj;
+
+        return pStart;
+    }
+    static NumberList deleteNodeAtLoc(NumberList pStart,int loc)
+    {
+        NumberList temp = pStart;
+        if(loc == 1)
+        {
+            pStart = pStart.next;
+            return pStart;
+        }
+        for(int i = 1;i< loc-1;i++)
+        {
+            temp = temp.next;
+        }
+        temp.next = temp.next.next;
+
+        return pStart;
+    }
+    static NumberList deleteNodeByValue(NumberList pStart,int value)
+    {
+        int count = 0;
+        NumberList temp = pStart;
+        NumberList previous = pStart;
+        while(temp!=null)
+        {
+            count++;
+            if(temp.data == value)
+            {
+                break;
+            }
+            previous = temp;
+            temp = temp.next;
+        }
+        if(temp == null)
+        {
+            System.out.println("Node with value : " + value + " not found in the list");
+            return pStart;
+        }
+        if(count == 1 && temp!=null)
+        {
+            pStart = pStart.next;
+        }
+        previous.next = previous.next.next;
+        return pStart;
+    }
+    static void printList(NumberList pStart)
+    {
+        while(pStart != null)
+        {
+            System.out.print(pStart.data + " ");
+            pStart = pStart.next;
+        }
+        System.out.println();
+    }
+
+    public static void main(String[] args) {
+        NumberList start = null;
+
+        NumberList nObj1 = new NumberList(10);
+        start = addNode(start,nObj1);
+
+        NumberList nObj2 = new NumberList(20);
+        start = addNode(start,nObj2);
+
+        NumberList nObj3 = new NumberList(30);
+        start = addNode(start,nObj3);
+
+        NumberList nObj4 = new NumberList(40);
+        start = addNode(start,nObj4);
+
+        NumberList nObj25 = new NumberList(25);
+        /* If the Location to be added is given which is more than the current elements + 1; the code will not work.
+        This is by design, to keep the code simple.
+         */
+        start = addNodeAtLoc(start,nObj25,3);
+        printList(start);
+
+        /* If the Location to be deleted is provided which is more than the current elements + 1; the code will not work.
+        This is by design, to keep the code simple.
+         */
+        start = deleteNodeAtLoc(start,2);
+        printList(start);
+
+        start = deleteNodeByValue(start,20);
+        printList(start);
+    }
+}
