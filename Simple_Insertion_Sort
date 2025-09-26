@@ -1,0 +1,27 @@
+public class InsertionSort {
+    public static void main(String[] args) {
+        int[] arrayI = {12,11,13,5,6,15,89,20,90,0,59,100};
+        for (int i = 1; i < arrayI.length; i++) {
+            int key = arrayI[i];
+            int j = 0;
+            while( (arrayI[j] < key)) {
+                j++;
+            }
+            insertAtLocation(arrayI,i,j);
+        }
+        for(int i = 0;i<arrayI.length;i++)
+        {
+            System.out.print(arrayI[i] + " ");
+        }
+    }
+    static void insertAtLocation(int[] arr,int keyLocation, int insertLocation)
+    {
+        int key = arr[keyLocation];
+        while(insertLocation!=keyLocation)
+        {
+            arr[keyLocation] = arr[keyLocation-1];
+            keyLocation--;
+        }
+        arr[insertLocation] = key;
+    }
+}
