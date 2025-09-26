@@ -1,0 +1,18 @@
+import java.util.Arrays;
+import java.util.Scanner;
+
+public class myScan2 {
+    public static void main(String[] args) {
+        Scanner myChoice = new Scanner(System.in);
+        System.out.println("Enter the required size of Integer Array");
+        int size = myChoice.nextInt();
+        int[] inputArray = new int[size];
+
+        for(int i = 0;i<size;i++)
+        {
+            System.out.println("Enter the Element " + (i+1) + " of your array");
+            inputArray[i] = myChoice.nextInt();
+        }
+        System.out.println(Arrays.toString(inputArray));
+    }
+}
