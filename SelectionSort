@@ -1,0 +1,36 @@
+public class mySelectionSort {
+    static void selectionSort(int[] arr){
+            for (int i = 0; i < arr.length; i++) {
+            // Assume the current position holds the maximum element
+            int max_idx = i;
+            // Iterate through the unsorted portion to find the actual maximum
+            for (int j = i+1 ; j < arr.length; j++) {
+                if (arr[i] >= arr[j])
+                {
+                    // Update max_idx if a larger element is found
+                    max_idx = j;
+                }
+            }
+            // Move maximum element to its correct position
+            int swapTemp = arr[i];
+            arr[i] = arr[max_idx];
+            arr[max_idx] = swapTemp;
+        }
+    }
+    public static void main(String[] args)
+    {
+        int[] arr = {64, 34, 25, 12, 22, 11, 90, 5,5};
+        System.out.print("Original array: ");
+        for(int i = 0;i<arr.length;i++)
+        {
+            System.out.print(arr[i] + " ");
+        }
+        System.out.println();
+        selectionSort(arr);
+        System.out.print("Sorted array: ");
+        for(int i = 0;i<arr.length;i++)
+        {
+            System.out.print(arr[i] + " ");
+        }
+    }
+}
