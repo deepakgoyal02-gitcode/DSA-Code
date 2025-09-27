@@ -1,0 +1,65 @@
+import java.lang.Integer;
+import java.util.Arrays;
+
+public class InsertionDeletionArray {
+
+    static void insertAtIndex(int[] arr,int key, int insertAtInd)
+    {
+        if(insertAtInd>= arr.length)
+        {
+            System.out.println("Insert location requested is greater than total array length");
+            System.out.println("Element cannot be inserted");
+            return;
+        }
+        int n = arr.length-1;
+        while(insertAtInd!=n)
+        {
+            arr[n] = arr[n-1];
+            n--;
+        }
+        arr[insertAtInd] = key;
+    }
+
+    static void deleteFromLocation(int[] arr,int pDeleteAtIndex)
+    {
+        for(int i = pDeleteAtIndex; i < arr.length - 1;i++)
+        {
+            arr[i] = arr[i+1];
+        }
+        arr[arr.length - 1] = Integer.MIN_VALUE;
+    }
+
+    static void deleteValue(int[] arr,int pToDeleteValue)
+    {
+      //find the index of value to delete using linear search
+      for(int i = 0;i < arr.length;i++)
+      {
+          if(arr[i] == pToDeleteValue)
+          {
+              deleteFromLocation(arr,i);
+              System.out.println("Element Deleted Successfully");
+          }
+          if(i== arr.length-1)
+          {
+              System.out.println("Value to be deleted not found in the array");
+          }
+      }
+    }
+
+    public static void main(String[] args) {
+        int[] array = {12,11,13,5,6,15,89,20,90,0,59,Integer.MIN_VALUE};
+
+        int valueToInsert = 30;
+        int insertAtIndex = 12;
+        insertAtIndex(array,valueToInsert,insertAtIndex);
+        System.out.println(Arrays.toString(array));
+
+        int deleteAtIndex = 3;
+        deleteFromLocation(array,deleteAtIndex);
+        System.out.println(Arrays.toString(array));
+
+        int toDeleteValue = 100;
+        deleteValue(array,toDeleteValue);
+        System.out.println(Arrays.toString(array));
+    }
+}
