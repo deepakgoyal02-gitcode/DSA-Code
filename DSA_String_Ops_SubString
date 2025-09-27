@@ -1,0 +1,29 @@
+class SubString {
+    public static void main(String[] args) {
+        char[] myCharArray = {'T', 'H', 'I', 'S', ' ', 'I', 'S', ' ', 'A', ' ', 'T', 'E', 'S', 'T'};
+        char[] myResult = mySubString(myCharArray, 5, 9);
+        System.out.println(myResult);
+
+    }
+
+    static char[] mySubString(char[] passedArray, int startIndex, int size)
+    {
+        int i = startIndex;
+        int counter = 0;
+
+        char[] resultSubstring = new char[size];
+        if((startIndex+size-1) < passedArray.length )
+        {
+        while(counter<size)
+        {
+            resultSubstring[counter] = passedArray[i];
+            i++;
+            counter++;
+        }
+        }
+        else
+            System.out.println("Requested subarray will go out of bound");
+
+        return resultSubstring;
+    }
+}
