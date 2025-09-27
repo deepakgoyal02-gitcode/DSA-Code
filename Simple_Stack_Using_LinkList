@@ -1,0 +1,51 @@
+class Node {
+    int value;
+    Node next;
+
+    Node(int value) {
+        this.value = value;
+    }
+}
+class myStack {
+    Node top;
+
+    void push(int item) {
+        Node node = new Node(item);
+        node.next = top;
+        top = node;
+        System.out.println("Element Successfully Pushed to Stack");
+    }
+
+    int pop() {
+        if (top == null) {
+            System.out.println("Stack is Empty: Nothing to Pop");
+            return -1;
+        }
+        int poppedValue = top.value;
+        top = top.next;
+        return poppedValue;
+    }
+
+    int peek() {
+        if (top != null) {
+            return top.value;
+        }
+        System.out.println("Stack is empty");
+        return -1;
+    }
+}
+
+class Main {
+    public static void main(String[] args) {
+        myStack mySt = new myStack();
+
+        mySt.push(10);
+        mySt.push(20);
+        mySt.push(30);
+        mySt.push(40);
+
+        System.out.println("Popped: " + mySt.pop());
+        System.out.println("Top element: " + mySt.peek());
+
+    }
+}
