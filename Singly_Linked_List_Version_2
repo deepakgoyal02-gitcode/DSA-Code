@@ -1,0 +1,145 @@
+public class cityNode
+{
+    public String cityName;
+    private cityNode next;
+
+    cityNode(String cityName)
+    {
+        this.cityName = cityName;
+    }
+    public void setNext(cityNode next)
+    {
+        this.next = next;
+    }
+
+    public cityNode getNext()
+    {
+        return next;
+    }
+    @Override
+    public String toString()
+    {
+        return cityName;
+    }
+}
+/////////////////////////////////////////////////////////////////
+public class cityLinkedList {
+    private cityNode head;
+
+        public void addAtLocation(cityNode passedCityNode)
+        {
+            cityNode cityNodeObj= passedCityNode;
+            cityNodeObj.setNext(head); //adding null here
+            head = cityNodeObj;
+        }
+
+        public cityNode removeFromLocation()
+        {
+            if(head == null)
+            {
+                return null;
+            }
+            cityNode removeFrontNode = head;
+            head = head.getNext();
+            //removeFrontNode.setNext(null);
+            return removeFrontNode;
+        }
+
+        public int addAtLocation(cityNode toAddNode,int location)
+        {
+            if(location == 1)
+            {
+                addAtLocation(toAddNode);
+                return 0;
+            }
+
+            cityNode current = head;
+            cityNode previous = head;
+            for(int i = 0;i<location-2;i++)
+            {
+                previous = previous.getNext();
+            }
+
+            for(int i = 0;i<location-1;i++)
+            {
+                current = current.getNext();
+            }
+
+            //System.out.println(current);
+
+            cityNode cityNodeObj = toAddNode;
+            cityNodeObj.setNext(current);
+            previous.setNext(cityNodeObj);
+            return 0;
+        }
+
+        public void removeFromLocation(int location)
+        {
+            cityNode current = head;
+            cityNode previous = head;
+            for(int i = 0;i<location-2;i++)
+            {
+                previous = previous.getNext();
+            }
+
+            for(int i = 0;i<location-1;i++)
+            {
+                current = current.getNext();
+            }
+
+            cityNode removeLocationNode = current;
+            previous.setNext(current.getNext());
+            current.setNext(null);
+            //return removeFrontNode;
+
+        }
+
+        public void printList()
+        {
+            cityNode current = head;
+            System.out.print("head -> ");
+            while (current != null) {
+                System.out.print(current);
+                System.out.print(" -> ");
+                current = current.getNext();
+            }
+            System.out.println("null");
+        }
+}
+///////////////////////////////////////////////////////////////////
+//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
+// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+public class Main {
+    public static void main(String[] args) {
+        cityNode newDelhi = new cityNode("New Delhi");
+        cityNode mumbai = new cityNode("Mumbai");
+        cityNode kolkata = new cityNode("Kolkata");
+        cityNode chennai = new cityNode("Chennai");
+        cityNode bangalore = new cityNode("Bangalore");
+        cityNode hyderabad = new cityNode("Hyderabad");
+        cityNode pune = new cityNode("Pune");
+
+        cityLinkedList myCityList = new cityLinkedList();
+
+
+        myCityList.addAtLocation(newDelhi);
+        myCityList.addAtLocation(mumbai);
+        myCityList.addAtLocation(kolkata);
+        myCityList.addAtLocation(chennai);
+        myCityList.addAtLocation(bangalore);
+        myCityList.addAtLocation(hyderabad);
+
+        //myCityList.printList();
+
+        myCityList.addAtLocation(pune,3);
+        myCityList.printList();
+//
+//        myCityList.removeFromLocation(2);
+//        myCityList.printList();
+//
+//        myCityList.removeFromLocation();
+//
+        //myCityList.printList();
+
+    }
+}
