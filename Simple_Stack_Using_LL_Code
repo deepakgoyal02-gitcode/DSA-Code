@@ -1,0 +1,65 @@
+class NumberList {
+    char data;
+    NumberList next;
+    NumberList(char pData)
+    {
+        data = pData;
+    }
+}
+class Main {
+
+    static NumberList createNode(char value)
+    {
+        NumberList nObj1 = new NumberList(value);
+        return nObj1;
+    }
+
+    static NumberList push(NumberList pStart,char pValue){
+        NumberList temp = createNode(pValue);
+        pStart = addNode(pStart, temp);
+        //System.out.println("Element "+ pValue + " pushed to stack successfully");
+        return pStart;
+    }
+
+    private static NumberList addNode(NumberList pStart, NumberList pObj) {
+        pObj.next = pStart;
+        pStart = pObj;
+        return pStart;
+    }
+
+    static NumberList pop(NumberList pStart)
+    {
+        if(pStart == null)
+        {
+            System.out.println("Stack is Empty: Hence nothing to Pop");
+
+        }else {
+            pStart = deleteNode(pStart);
+        }
+        return pStart;
+    }
+    private static NumberList deleteNode(NumberList pStart) {
+        // System.out.println("Popped Element is " + pStart.data);
+        System.out.print(pStart.data + " ");
+        return pStart.next;
+    }
+
+    static void peek(NumberList pStart)
+    {
+        System.out.println("Peeking Element " + pStart.data);
+    }
+
+    public static void main(String[] args) {
+        NumberList start = null;
+        char[] cArray = {'S','t','a','c','k'};
+        for(int i = 0;i<cArray.length;i++)
+        {
+            start = push(start,cArray[i]);
+        }
+        start = pop(start);
+        start = pop(start);
+        start = pop(start);
+        start = pop(start);
+        start = pop(start);
+    }
+}
