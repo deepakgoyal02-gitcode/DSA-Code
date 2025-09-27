@@ -1,0 +1,46 @@
+Algorithm done in class for pattern matching
+1. [Initialize] Set K := 1 and Max := S - R + 1.
+2. Repeat Steps 3 to 5 while K < Max:
+3.	Repeat for L = 1 to R: [Tests each character of P.]
+		if P[L] = T[K+L-1], then Go to Step 5.
+	[End of Inner Loop.]
+4. 	[Success.] Set INDEX = K, and Exit.
+5. 	Set K:= K+1;
+   [End of Step 2 Outer Loop.]
+6. [Failure.] Set INDEX = 0.
+7. Exit
+///////////////////////////////////////////
+
+Java Code for Pattern Matching using this algorithm
+
+public class StringPatternMatching {
+        public static void main(String[] args) {
+            char[] T = {'T', 'H', 'I', 'S', ' ', 'I', 'S', ' ', 'A', ' ', 'T', 'E', 'S', 'T'};
+            char[] P = {'I', 'S'};
+            boolean isFound = false;
+            int lastIndexToMatch = T.length - P.length + 1;
+
+            for (int k = 0; k < lastIndexToMatch ; k++)
+            {
+                boolean isAMatch = true;
+                for (int l = 0; l < P.length; l++)
+                {
+                    if (P[l] != T[k + l] )
+                    {
+                        isAMatch = false;
+                        break;
+                    }
+                }
+                if (isAMatch)
+                {
+                    isFound = true;
+                    System.out.println("Pattern found at index: " + k);
+                    //break; //If I uncomment this break statement then it will only find the first occurence
+                }
+            }
+            if (!isFound)
+            {
+                System.out.println("Pattern not found.");
+            }
+        }
+    }
