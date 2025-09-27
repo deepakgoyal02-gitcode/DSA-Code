@@ -1,0 +1,57 @@
+class myStack {
+    int[] sArray;
+    int top;
+    int maxSize;
+
+    myStack(int pSize) {
+        maxSize = pSize;
+        sArray = new int[maxSize];
+        top = -1;
+    }
+
+   void push(int pValue) {
+        if (top == maxSize - 1) {
+            System.out.println("Stack is Full: Value cannot be Pushed to Stack");
+            return;
+        }
+        top = top+1;
+        sArray[top] = pValue;
+        System.out.println("Element Successfully Pushed to Stack");
+    }
+
+    int pop() {
+        int poppedValue;
+        if (top == -1) {
+            System.out.println("Stack is Empty: Nothing to Pop");
+            return -1;
+        }
+        poppedValue = sArray[top];
+        top = top -1;
+        return poppedValue;
+    }
+    
+    int peek() {
+        int peekedValue;
+        if (top == -1) {
+            System.out.println("Stack is Empty");
+            return -1;
+        }
+        peekedValue = sArray[top];
+        return peekedValue;
+    }
+}
+
+class Main {
+    public static void main(String[] args) {
+        myStack mySt = new myStack(4);
+        
+        mySt.push(10);
+        mySt.push(20);
+        mySt.push(30);
+        mySt.push(40);
+        
+        System.out.println("Popped: " + mySt.pop());
+        System.out.println("Top element: " + mySt.peek());
+        
+    }
+}
