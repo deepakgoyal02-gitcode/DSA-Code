@@ -1,0 +1,28 @@
+public class LinearSearch {
+    static int linearSearch(int[] arr,int pValueToFind)
+    {
+        for (int i = 0; i < arr.length; i++)
+        {
+            if (arr[i] == pValueToFind)
+            {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public static void main(String[] args)
+    {
+        int[] array = {12,11,13,5,6,15,89,20,90,0,59};
+        int foundLoc;
+
+        int valueToFind = 100;
+        foundLoc = linearSearch(array,valueToFind);
+        if(foundLoc == -1)
+        {
+            System.out.println("Value not found in the Array");
+        } else {
+            System.out.println("Element found in the Array at location: " + (foundLoc + 1));
+        }
+    }
+}
