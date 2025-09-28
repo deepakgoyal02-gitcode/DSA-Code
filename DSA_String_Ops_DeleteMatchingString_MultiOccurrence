@@ -1,0 +1,99 @@
+//This code would have been way smaller if I could use linklist or JAVA ArrayList
+//Many of the optimization are not done on purpose
+
+public class deletionInStrMultipleOccurence {
+    public static int patternMatchFromIndex(char[] T, char[] P, int startIndex) {
+        boolean isFound = false;
+        int lastIndexToMatch = T.length - P.length + 1;
+
+        for (int k = startIndex; k < lastIndexToMatch; k++) {
+            boolean isAMatch = true;
+            for (int l = 0; l < P.length; l++) {
+                if (P[l] != T[k + l]) {
+                    isAMatch = false;
+                    break;
+                }
+            }
+            if (isAMatch) {
+                isFound = true;
+                return k;
+            }
+        }
+        if (!isFound) {
+            return -1;
+        }
+        return -1;
+    }
+
+    public static void deletePatternAtIndex(char[] T, int indexDelete, int pPatternLength) {
+        for(int i = indexDelete; i < T.length - pPatternLength;i++)
+        {
+            T[i] = T[i+pPatternLength];
+        }
+        for(int i = 0;i<pPatternLength;i++)
+        {
+            T[T.length - i - 1] = ' ';
+        }
+    }
+
+    public static void deleteMultipleOcc(char[] T, char[] P,int[] pIndexDeleteArray)
+    {
+        for (int i = 0; i < pIndexDeleteArray.length; i++) {
+            if (i == 0) {
+                deletePatternAtIndex(T, pIndexDeleteArray[i] - i * P.length, P.length);
+            } else {
+                deletePatternAtIndex(T, pIndexDeleteArray[i] - P.length, P.length);
+            }
+        }
+    }
+
+    public static void printString(char[] cArray) {
+        for (int k = 0; k < cArray.length; k++) {
+            System.out.print(cArray[k]);
+        }
+    }
+
+    public static int occurrenceCount(char[] T, char[] P)
+    {
+        int patternOccurenceCounter = 0;
+        int returnIndex = -1;
+        for (int i = returnIndex + 1; returnIndex < T.length; i++) {
+            returnIndex = patternMatchFromIndex(T, P, returnIndex + 1);
+            if (returnIndex == -1) {
+                break;
+            } else {
+                patternOccurenceCounter++;
+            }
+        }
+        return patternOccurenceCounter;
+    }
+
+    public static int[] buildOccurrenceArray(char[] T, char[] P,int pOccurrenceCount)
+    {
+        int[] indexDelete = new int[pOccurrenceCount];
+
+        int returnIndex = -1;
+        for (int i = returnIndex + 1, j = 0; returnIndex < T.length; i++, j++) {
+            returnIndex = patternMatchFromIndex(T, P, returnIndex + 1);
+            if (returnIndex == -1) {
+                break;
+            } else {
+                indexDelete[j] = returnIndex;
+            }
+        }
+        return indexDelete;
+    }
+
+    public static void main(String[] args) {
+        char[] T = {'c','o', 'n','c', 'a', 't','e', 'n','a', 't','e'};
+        char[] P = {'t', 'e'};
+
+        int count= occurrenceCount(T,P);
+        int[] indexDeleteArray = buildOccurrenceArray(T,P,count);
+        deleteMultipleOcc(T,P,indexDeleteArray);
+
+        printString(T);
+    }
+}
+
+
