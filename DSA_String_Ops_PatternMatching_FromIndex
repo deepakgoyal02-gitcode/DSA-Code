@@ -1,0 +1,37 @@
+public class patternMatchFromIndex {
+public static void patternMatchFromIndex(char[] T, char[] P, int startIndex)
+{
+    boolean isFound = false;
+    int lastIndexToMatch = T.length - P.length + 1;
+
+    for (int k = startIndex; k < lastIndexToMatch; k++) {
+        boolean isAMatch = true;
+        for (int l = 0; l < P.length; l++) {
+            if (P[l] != T[k + l]) {
+                isAMatch = false;
+                break;
+            }
+        }
+        if (isAMatch) {
+            isFound = true;
+            System.out.println("Pattern found at index: " + k);
+            //break; //If I uncomment this break statement then it will only find the first occurence
+        }
+    }
+    if (!isFound) {
+        System.out.println("Pattern not found.");
+    }
+}
+    public static void printString(char[] cArray) {
+        for (int k = 0; k < cArray.length; k++) {
+            System.out.print(cArray[k]);
+        }
+    }
+    public static void main(String[] args) {
+        char[] T = {'c','o', 'n','c', 'a', 't','e', 'n','a', 't','e'};
+        char[] P = {'t', 'e'};
+        printString(T);
+        System.out.println();
+        patternMatchFromIndex(T,P,5);
+    }
+}
