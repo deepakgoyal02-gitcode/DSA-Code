@@ -1,0 +1,51 @@
+// This Program is used when the requirement is to delete only the first Occurrence of matching String
+public class deletionInStr {
+
+    public static int patternMatch(char[] T, char[] P) {
+        int lastIndexToMatch = T.length - P.length + 1;
+
+        for (int k = 0; k < lastIndexToMatch; k++)
+        {
+            boolean isAMatch = true;
+            for (int l = 0; l < P.length; l++) {
+                if (P[l] != T[k + l]) {
+                    isAMatch = false;
+                    break;
+                }
+            }
+            if (isAMatch) {
+                return k;
+            }
+        }
+        return -1;
+    }
+
+    public static void deletePatternAtIndex(char[] T,int indexDelete,int pPatternLength)
+    {
+            for(int i = indexDelete; i < T.length - pPatternLength;i++)
+            {
+                T[i] = T[i+pPatternLength];
+            }
+            for(int i = 0;i<pPatternLength;i++)
+            {
+                T[T.length - i - 1] = ' ';
+            }
+    }
+
+    public static void printString(char[] cArray)
+    {
+        for(int k = 0;k<cArray.length;k++)
+        {
+            System.out.print(cArray[k]);
+        }
+    }
+
+    public static void main(String[] args) {
+        char[] T = {'T', 'H', 'I', 'S', ' ', 'I', 'S', ' ', 'A', ' ', 'T', 'E', 'S', 'T'};
+        char[] P = {'I', 'S'};
+
+        int indexDelete = patternMatch(T,P);
+        deletePatternAtIndex(T,indexDelete,P.length);
+        printString(T);
+    }
+}
