@@ -1,0 +1,57 @@
+public class insertPatternInString {
+    static int insertPatternAtIndex(char[] arr, char[] pPattern, int insertAtInd)
+    {
+        int n = arr.length-1;
+        for(int i = 0;i<pPattern.length;i++)
+        {
+            if(arr[n] == ' ')
+            {
+                n--;
+             continue;
+
+            }
+            else{
+                System.out.println("Not Enough space present at the end");
+                return -1;
+            }
+        }
+
+        if(insertAtInd>= arr.length)
+        {
+            System.out.println("Insert location requested is greater than total array length");
+            System.out.println("Element cannot be inserted");
+            return -1;
+        }
+
+        n = arr.length-1;
+        while(insertAtInd!=n)
+        {
+            arr[n] = arr[n - pPattern.length + 1];
+            n--;
+        }
+
+        for(int i = 0;i<pPattern.length;i++)
+        {
+            arr[insertAtInd] = pPattern[i];
+            insertAtInd++;
+        }
+        return 0;
+
+    }
+
+    public static void printString(char[] cArray)
+    {
+        for(int k = 0;k<cArray.length;k++)
+        {
+            System.out.print(cArray[k]);
+        }
+    }
+
+    public static void main(String[] args) {
+        char[] T = {'T', 'H', 'I', 'S', ' ', 'I', 'S', ' ', 'A', ' ', 'T', 'E', 'S', 'T'};
+        char[] P = {'I', 'S'};
+        int insertAtIndex = 4;
+        insertPatternAtIndex(T,P,insertAtIndex);
+        printString(T);
+    }
+}
