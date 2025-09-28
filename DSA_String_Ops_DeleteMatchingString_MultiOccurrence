@@ -1,5 +1,7 @@
 //This code would have been way smaller if I could use linklist or JAVA ArrayList
 //Many of the optimization are not done on purpose
+//First very simple optimization would be to directly call delete from patternmaching method
+//But i did not implement this because below has 3 more methods which can be used elsewhere
 
 public class deletionInStrMultipleOccurence {
     public static int patternMatchFromIndex(char[] T, char[] P, int startIndex) {
