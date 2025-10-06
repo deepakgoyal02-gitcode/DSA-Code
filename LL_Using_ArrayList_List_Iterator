@@ -1,0 +1,46 @@
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.ListIterator;
+
+public class myLinkedList {
+    public static void main(String[] args) {
+        ArrayList<String> myCity = new ArrayList<>();
+
+        myCity.add("New Delhi");
+        myCity.add("Mumbai");
+        myCity.add("Kolkata");
+        myCity.add("Chennai");
+        myCity.add("Bangalore");
+        myCity.add("Hyderabad");
+        System.out.println(myCity);
+        myCity.add(1, "Pune");
+
+        System.out.println(myCity);
+        myCity.remove(4);
+        System.out.print("[");
+        for(String city:myCity)
+        {
+            System.out.print(city);
+            System.out.print(", ");
+        }
+        System.out.print("]");
+
+        System.out.println();
+        Iterator<String> fwdIterator = myCity.iterator(); //only FORWARD possible
+
+        while(fwdIterator.hasNext())
+        {
+            System.out.println(fwdIterator.next());
+        }
+
+        System.out.println();
+
+        ListIterator<String> reverseIterator = myCity.listIterator(myCity.size());
+        //FORWARD and REVERSE both possible
+        while(reverseIterator.hasPrevious())
+        {
+            System.out.println(reverseIterator.previous());
+        }
+
+    }
+}
