@@ -1,0 +1,217 @@
+class Node {
+    int data;
+    Node next;
+
+    Node(int data) { this.data = data; }
+
+    Node(int data, Node next)
+    {
+            this.data = data;
+            this.next = next;
+    }
+}
+//////////////////////////////////////
+class SortedLinkedList {
+    public static void main(String[] args) {
+        Node myList = insert(null,11); // insert(in list, to add value)
+        myList = insert(myList,111);
+        myList = insert(myList,22);
+        myList = insert(myList,66);
+        myList = insert(myList,33);
+        myList = insert(myList,55);
+        myList = insert(myList,2);
+        myList = insert(myList,88);
+        myList = insert(myList,77);
+
+
+        Node tempPointer = myList;
+        System.out.print(tempPointer.data + " ,");
+
+        while(tempPointer.next!=null)
+        {
+            System.out.print(tempPointer.next.data+ " ,");
+            tempPointer = tempPointer.next;
+        }
+
+    }
+        static Node insert (Node listHead, int itemToAdd)
+        {
+                //LOGIC for first element or less than start value element
+                if (listHead == null || listHead.data > itemToAdd) {
+                    listHead = new Node(itemToAdd, listHead);
+                    return listHead;
+                }
+
+                Node tempPointer = listHead;
+
+                while (tempPointer.next != null) {
+                    if (tempPointer.next.data > itemToAdd) {
+                        break;
+                    }
+                    tempPointer = tempPointer.next;
+                }
+                tempPointer.next = new Node(itemToAdd, tempPointer.next);
+                return listHead;
+        }
+
+        static Node delete (Node listHead, int itemToRemove)
+        {
+            if (listHead == null || listHead.data > itemToRemove)
+                {
+                    return listHead;
+                } else
+                    if (listHead.data == itemToRemove)
+                        {
+                            return listHead.next;
+                        }
+            for (Node tempPointer = listHead; tempPointer.next != null; tempPointer = tempPointer.next)
+                {
+                    if (tempPointer.next.data > itemToRemove)
+                        {
+                            break;
+                        } else
+                            if (tempPointer.next.data == itemToRemove)
+                                {
+                                    tempPointer.next = tempPointer.next.next;
+                                    break;
+                                }
+                }
+          return listHead;
+        }
+}
+///////////////////////////////////////////////////////////////////////////////////////////
+
+Below is the program for Unsorted Linked List - similar to other implementations
+public class UnsortedLinkedList {
+    public static void main(String[] args)
+    {
+        Node start = null; // new Node(22); //list is created by adding a node with next having default value of null
+        start = insert(start, 22);
+        start = insert(start, 66);
+        start = insert(start, 33);
+        start = insert(start, 55);
+        start = insert(start, 99);
+        start = insert(start, 88);
+        start = insert(start, 77);
+        start = insert(start,111,8);
+
+        printList(start);
+
+        start = deleteFromFront(start);
+        start = delete(start,1000);
+        System.out.println();
+        printList(start);
+    }
+
+    public static Node insert(Node start,int value,int loc)
+    {
+        Node listPointer = start ;
+        int counter;
+
+        if(start!=null)  //if not an empty list then it at-least has 1 element and hence counter is 1
+            counter = 1;
+        else
+            return addNodeAtStart(start,value);
+
+        //adding to the front of the list
+        if(loc==1)
+            return addNodeAtStart(start,value);
+
+        //if no location is specified then {&& counter < (loc-1)} should always remain true
+        if(loc<=0 || (loc > calculateLength(start)))
+            counter = -2147483648;
+
+        if(start!=null)
+        //find the appropriate location to add new node
+        {
+            for (; listPointer.next != null && counter < (loc - 1); counter++)
+                listPointer = listPointer.next;
+            addNode(listPointer,value);
+        }
+        return start;
+    }
+
+    public static Node insert(Node start,int value)  //to add element at the end of the list
+    {
+        start = insert(start,value,0);
+        return start;
+    }
+
+    public static void addNode(Node listPointer,int value)
+    {
+        Node temp = listPointer.next;
+        listPointer.next = new Node(value);
+        listPointer.next.next = temp;
+    }
+
+    public static Node addNodeAtStart(Node start, int value)
+    {
+        Node startTemp = start;
+        start = new Node(value);
+        start.next = startTemp;
+
+        return start;
+    }
+
+    public static void printList(Node start)
+    {
+        System.out.print("[ ");
+        for (Node p = start; p != null; p = p.next)
+            System.out.print(p.data + " ");
+        System.out.print("]");
+    }
+
+    public static int calculateLength(Node start)
+    {
+        Node lengthPointer = start;
+        int length=0;
+        while (lengthPointer.next != null) {
+            length++;
+            lengthPointer = lengthPointer.next;
+        }
+        length++; //lengthPointer.next == null tell us that there is last element to be counted
+
+        return length;
+    }
+    public static Node deleteFromFront(Node start)
+    {
+        if(start==null) {
+            System.out.println("List is empty");
+            return start;
+        }
+
+        //start = start.next;
+
+        Node temp = start.next;
+        start.next = null;
+        start = temp;
+
+        return start;
+    }
+    public static Node delete(Node start,int loc)
+    {
+        if(start==null) {
+            System.out.println("List is empty");
+            return start;
+        }
+
+        Node listPointer = start ;
+        int counter = 1;
+
+        if(loc>1 && loc <= calculateLength(start))
+        {
+            //if correct location specified then run below
+            //else it should delete from front
+            for(;listPointer.next != null && counter < (loc-1);counter++)
+                listPointer = listPointer.next;
+
+            Node temp = listPointer.next.next;
+            listPointer.next.next = null;
+            listPointer.next = temp;
+        }
+        else  return deleteFromFront(start);
+
+        return start;
+    }
+}
+
