@@ -1,0 +1,49 @@
+import java.util.*;
+
+class Patient {
+    int id;
+    int arrivalTime;
+    int priority;
+
+    public Patient(int id, int arrivalTime, int priority) {
+        this.id = id;
+        this.arrivalTime = arrivalTime;
+        this.priority = priority;
+    }
+
+    @Override
+    public String toString() {
+        return "Patient ID: " + id + ", Arrival Time: " + arrivalTime + ", Priority: " + priority;
+    }
+}
+
+    public class TempMain {
+        public static void main(String[] args) {
+            // PriorityQueue with custom comparator
+            PriorityQueue<Patient> queue = new PriorityQueue<>(new Comparator<Patient>()
+            {
+                @Override
+                public int compare(Patient p1, Patient p2)
+                {
+                    if (p2.priority != p1.priority) {
+                        return Integer.compare(p2.priority, p1.priority); // higher priority first
+                    } else {
+                        return Integer.compare(p1.arrivalTime, p2.arrivalTime); // earlier arrival first
+                    }
+                }
+            }
+            );
+
+            // Adding patients to the queue
+            queue.add(new Patient(101, 2, 3));
+            queue.add(new Patient(102, 1, 4));
+            queue.add(new Patient(103, 3, 4));
+            queue.add(new Patient(104, 4, 2));
+
+            // Polling patients based on priority and arrival time
+            System.out.println("Treating patients in order:");
+            while (!queue.isEmpty()) {
+                System.out.println(queue.poll());
+            }
+        }
+    }
