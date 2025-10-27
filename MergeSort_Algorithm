@@ -1,0 +1,65 @@
+Bottom-Up Approach: It starts with the smallest sorted units (individual elements) and progressively merges them into larger sorted units.
+The iterative merge sort algorithm, also known as bottom-up merge sort, sorts an array by repeatedly merging sorted subarrays of increasing sizes. Unlike its recursive counterpart, it avoids recursion and uses loops to manage the merging process.
+Algorithm Steps: Initialize Subarrays: Treat each element of the input array as a sorted subarray of size 1.
+
+Iterative Merging:
+Step 1. Begin with a SIZE variable initialized to 1. This size represents the length of the sorted subarrays to be merged in each pass.
+Step 2. In a loop, iterate while size is less than the total number of elements in the array.
+Step 3. Inside this loop, iterate through the array with a leftStart variable, incrementing it by 2 * size (i.e leftStart = leftStart + 2 * size) in each step. 
+        This leftStart marks the beginning of the first subarray to be merged.
+Step 4. Calculate mid = leftStart + size - 1 and rightEnd = min(leftStart + 2 * size - 1, n - 1), where n is the total number of elements.
+Step 5. Call a merge function to combine the two sorted subarrays: arr[leftStart...mid] and arr[mid+1...rightEnd].
+Step 6. After each pass (inner loop completion), double the size (size *= 2) for the next pass, meaning you will be merging larger sorted subarrays.
+
+Merge Function: The merge function takes the array and the left, mid, and right indices as input.
+Step 1. Copy the elements from the two subarrays (arr[left...mid] and arr[mid+1...right]) into a temporary auxiliary array.
+Step 2. Compare elements from the two halves in the auxiliary array and places them back into the original array in sorted order.
+Step 3. Copy Any remaining elements from either half are copied back to the original array.
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+MERGESORT
+Here A is an array with N elements
+1. [Initialize.] SET SIZE := 1, MID := 1, RIGHTEND := 1.
+2. [Outer Loop] 
+      Repeat while SIZE < N
+            [Inner Loop] 
+            a) Repeat while LEFTSTART < N
+                  i)   MID := LEFTSTART + SIZE - 1, RIGHTEND := min(LEFTSTART + 2 * SIZE - 1, N).
+                  ii)  Call MERGE(A, LEFTSTART, MID, RIGHTEND).
+                  iii) LEFTSTART := LEFTSTART + 2 * SIZE.
+            [End Of Inner Loop.]
+            b) SIZE := 2 * SIZE.
+[End Of Outer Loop.]
+3. Exit.
+
+
+--------------------------------------------------------------------------------------------
+[[A[LEFT...till...MID] will have MID - LEFT + 1 elements (as MID will be greater than or equal to LEFT)]]
+[[A[MID+1..till...RIGHT] will have RIGHT - (MID + 1) + 1 elements i.e. RIGHT - MID - 1 + 1 gives RIGHT - MID]]
+
+MERGE(A, LEFT, MID, RIGHT)
+1. SET SIZE_FIRST  := MID - LEFT + 1 , SIZE_SECOND := RIGHT - MID.
+2. CREATE FIRSTARR and SECONDARR arrays having SIZE_FIRST and SIZE_SECOND elements respectively
+3.  [copy data to temporary arrays]
+    a) Repeat FOR I = 1 to SIZE_FIRST.
+        i) SET FIRSTARR[I] := A[LEFT + I].
+    b) Repeat FOR J = 1 to SIZE_SECOND.
+        ii) SET SECONDARR[J] := A[MID + 1 + J].
+4.  [merge the temporary arrays back into the original array.]
+    a) SET I := 1, J := 1, K := LEFT.
+    b) Repeat while I <= SIZE_FIRST AND J <= SIZE_SECOND
+          i) IF FIRSTARR[I] <= SECONDARR[J] then:
+                A[K] := FIRSTARR[I], I := I + 1.
+              ELSE
+                A[K] := SECONDARR[J], J := J + 1.
+             [End of IF Structure]
+           ii) K := K + 1.
+      [End Of Loop.]
+5.  [copy remaining elements of FIRSTARR]
+    a)  Repeat while I <= SIZE_FIRST   [Here the value of I is not reinitialized to any value]
+         i)  A[K] := FIRSTARR[I], I := I + 1, K := K + 1.
+
+    b) Repeat while J <= SIZE_SECOND   [Here the value of J is not reinitialized to any value]
+         ii) A[K] := SECONDARR[J], J := J + 1, K := K + 1.
+6. Return.
