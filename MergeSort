@@ -1,0 +1,66 @@
+import java.util.Arrays;
+
+public class IterativeMergeSort {
+    private static void merge(int[] arr, int left, int mid, int right) {
+        int sizeFirst = mid - left + 1;
+        int sizeSecond = right - mid;
+        
+        int[] firstArr = new int[sizeFirst];
+        int[] secondArr = new int[sizeSecond];
+
+        for(int i = 0; i < sizeFirst; i++) {
+            firstArr[i] = arr[left + i];
+        }
+        for(int j = 0; j < sizeSecond; j++) {
+            secondArr[j] = arr[mid + 1 + j];
+        }
+        
+        int i = 0, j = 0, k = left;
+        while (i < sizeFirst && j < sizeSecond) {
+            if (firstArr[i] <= secondArr[j]) {
+                arr[k] = firstArr[i];
+                i++;
+            } else {
+                arr[k] = secondArr[j];
+                j++;
+            }
+            k++;
+        }
+        
+        while (i < sizeFirst) {
+            arr[k] = firstArr[i];
+            i++;
+            k++;
+        }
+        
+        while (j < sizeSecond) {
+            arr[k] = secondArr[j];
+            j++;
+            k++;
+        }
+    }
+    
+    public static void mergeSort(int[] arr) {
+        int n = arr.length;
+        // Iterate through sub-arrays of increasing size (1, 2, 4, 8, ...)
+        int size = 1;
+        while(size < n) 
+        {
+            int leftStart = 0;
+            while(leftStart < n - 1) 
+            {
+                int mid = leftStart + size - 1;
+                int rightEnd = Math.min(leftStart + 2 * size - 1, n - 1);
+                merge(arr, leftStart, mid, rightEnd);
+                leftStart = leftStart +  2 * size;
+            }
+            size = size * 2;
+        }
+    }
+    
+    public static void main(String[] args) {
+        int[] data = {12, 11, 13, 5, 6, 7, 27, 43, 89, 1000, 10, 56};
+        mergeSort(data);
+        System.out.println(Arrays.toString(data));
+    }
+}
