@@ -1,0 +1,45 @@
+Here A is an array with N elements, Parameters BEG and END contain the boundary values of the sublist of A to which
+this procedure applies. LOC keeps track of the position of the first element A[BEG] of the sublist during the procedure.
+The local variable LEFT and RIGHT will contain the boundary values of the list of elements that have not been scanned.
+
+QUICK (A, N, BEG, END, LOC)
+1. [Initialize.] Set LEFT := BEG, RIGHT :=END and LOC :=BEG.
+2. [Scan from right to left]
+    a) Repeat while A[LOC] <= A[RIGHT] and LOC != RIGHT:  {find the element smaller than the current element}
+        RIGHT := RIGHT - 1.
+       [End Of Loop.]
+    b) If LOC = RIGHT, then: RETURN.
+    c) If A[LOC] > A[RIGHT], then:
+        i)   [Interchange A[LOC] and A[RIGHT].]
+        ii)  Set LOC :=RIGHT.
+        iii) Go To Step 3.
+      [End Of IF Structure.]
+3. [Scan from left to right]                              {find the element bigger than the current element}
+    a) Repeat while A[LOC] >= A[LEFT] and LOC != LEFT:
+        LEFT := LEFT + 1.
+       [End Of Loop.]
+    b) If LOC = LEFT, then: RETURN.
+    c) If A[LOC] < A[LEFT], then:
+        i)   [Interchange A[LOC] and A[LEFT].]
+        ii)  Set LOC :=LEFT.
+        iii) Go To Step 2.
+      [End Of IF Structure.]
+////////////////////////////////////////////////////////////////////////////////
+QUICKSORT - This algorithm sorts an array A with N elements.
+1. [Initialize.] TOP := NULL.
+2. [Push boundary values of A onto stacks when A has 2 or more elements.]
+    If N > 1, then TOP := TOP + 1, LOWER[1] := 1, UPPER[1] := N.
+3.  Repeat Steps 4 to 7 while TOP != NULL.
+4.  [Pop Sublist from stacks (i.e. LOWER[] and UPPER[] ).]
+    Set BEG := LOWER[TOP], END := UPPER[TOP], TOP := TOP - 1.
+5.  CALL QUICK(A,N,BEG,END,LOC).
+6.  [Push left sublist onto stacks when it has 2 or more elements.]
+    If BEG < LOC - 1, then:
+      TOP := TOP + 1, LOWER[TOP] := BEG, UPPER[TOP] := LOC - 1.
+    [End of IF Structure.]
+7.  [Push right sublist onto stacks when it has 2 or more elements.]
+    If END > LOC + 1, then:
+      TOP := TOP + 1, LOWER[TOP] := LOC + 1, UPPER[TOP] := END.
+    [End of IF Structure.]
+  [End of Step 3 loop.]
+8. Exit.
