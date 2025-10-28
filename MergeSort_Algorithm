@@ -60,6 +60,7 @@ MERGE(A, LEFT, MID, RIGHT)
     a)  Repeat while I <= SIZE_FIRST   [Here the value of I is not reinitialized to any value]
          i)  A[K] := FIRSTARR[I], I := I + 1, K := K + 1.
 
+    [copy remaining elements of SECONDARR]    
     b) Repeat while J <= SIZE_SECOND   [Here the value of J is not reinitialized to any value]
          ii) A[K] := SECONDARR[J], J := J + 1, K := K + 1.
 6. Return.
