@@ -24,6 +24,7 @@ Here A is an array with N elements
 2. [Outer Loop] 
       Repeat while SIZE < N
             [Inner Loop] 
+            LEFTSTART := 1.    
             a) Repeat while LEFTSTART < N
                   i)   MID := LEFTSTART + SIZE - 1, RIGHTEND := min(LEFTSTART + 2 * SIZE - 1, N).
                   ii)  Call MERGE(A, LEFTSTART, MID, RIGHTEND).
