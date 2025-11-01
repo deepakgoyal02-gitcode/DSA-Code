@@ -1,1 +1,85 @@
+import java.util.Arrays;
 
+public class IterativeQuickSort {
+
+    public static int quick(int[] arr, int n, int beg, int end, int loc)
+    {
+        int left = beg, right = end;
+        while(true)
+        {
+            {  //scan from right to left
+                while ((arr[loc] <= arr[right]) && (loc != right))
+                    right--;
+
+                if (loc == right)
+                    return loc;
+
+                if (arr[loc] > arr[right]) {
+                    int temp = arr[loc];
+                    arr[loc] = arr[right];
+                    arr[right] = temp;
+                    loc = right;
+                }
+            }
+            {   //scan from left to right
+                while ((arr[loc] >= arr[left]) && (loc != left))
+                {
+                    left++;
+                }
+                if(loc==left)
+                {
+                    return loc;
+                }
+                if(arr[loc] < arr[left])
+                {
+                    int temp = arr[loc];
+                    arr[loc] = arr[left];
+                    arr[left] = temp;
+                    loc = left;
+                }
+            }
+        }
+    }
+    public static void quickSort(int[] arr,int n)
+    {
+        int top = -1;
+        int beg = 0;
+        int end = 0;
+        int loc = 0;
+        int[] lower = new int[n];
+        int[] upper = new int[n];
+        if(n>1)
+        {
+            top++;
+            lower[0] = 0;
+            upper[0] = n-1;
+        }
+        while(top != -1)
+        {
+            beg = lower[top];
+            loc = lower[top];//important
+            end = upper[top];
+            top--;
+            loc = quick(arr,n,beg,end,loc);
+            if(beg < loc-1)
+            {
+                top++;
+                lower[top] = beg;
+                upper[top] = loc-1;
+            }
+            if(end > loc+1)
+            {
+                top++;
+                lower[top] = loc+1;
+                upper[top] = end;
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        int[] arrayQ = {44,33,11,55,77,90,40,60,99,22,88,66};
+        //int[] arrayQ = {44,33,11,55,77};
+        quickSort(arrayQ,arrayQ.length);
+        System.out.println(Arrays.toString(arrayQ));
+    }
+}
